@@ -1,10 +1,10 @@
 import { supabase } from "../axios/supabase"; // Ensure the path is correct
 
-export default function Logout({ handleLogOut }) {
+export default function Logout({handleLogOut}) {
     const handleLogout = async () => {
         const { error } = await supabase.auth.signOut();
         if (!error) alert('Logged out successfully');
-        handleLogOut(); // Call the parent function to update the user state
+        handleLogOut();
     };
 
     return (

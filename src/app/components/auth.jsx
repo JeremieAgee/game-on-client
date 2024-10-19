@@ -1,23 +1,26 @@
 import { useState } from 'react';
 import { supabase } from '@/app/axios/supabase';
-
-export default function Auth({handleLogIn, handleSignUp, handleLogOut}) {
+import { useUser } from '../context/userContext';
+export default function Auth() {
+  const {setSession, setUser} = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-
+  
   const handleSignup = async () => {
     const { data, error } = await supabase.auth.signUp({ email, password });
-    handleSignUp(data);
+    setUser(data.user);
+    setSession(data.session);
     setError(error ? error.message : null);
     if (!error) alert('Signup successful! Check your email.');
+    console.log(data);
   };
 
   const handleLogin = async () => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    handleLogIn(data)
+    setUser(data.user);
+    setSession(data.session);
     setError(error ? error.message : null);
-
     if (!error) alert('Login successful!');
   };
 
