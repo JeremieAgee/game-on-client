@@ -31,6 +31,10 @@ export const APIProvider = ({ children }) => {
                 API.get('/tournaments'),
                 API.get('/genre'),
             ]);
+            console.log(platformsResponse.data)
+            console.log(gamesResponse.data)
+            console.log(tournamentsResponse.data)
+            console.log(genresResponse.data)
             setPlatforms(platformsResponse.data);
             setGames(gamesResponse.data);
             setTournaments(tournamentsResponse.data);
