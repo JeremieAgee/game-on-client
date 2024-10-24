@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { supabase } from '../axios/supabase';
-import { useUser } from '../context/userContext';
-import API from '../axios/api';
+import { supabase } from '../app/axios/supabase';
+import { useUser } from '../app/context/userContext';
+import API from '../app/axios/api';
 
 const JoinComponent = ({ tournament, setTournament }) => {
     const { user } = useUser();

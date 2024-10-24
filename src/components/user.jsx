@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../axios/supabase';
-import { useUser } from '../context/userContext';
-import { useSite } from '../context/apiContext';
+import { supabase } from '../app/axios/supabase';
+import { useUser } from '../app/context/userContext';
+import { useSite } from '../app/context/apiContext';
 import AddTournament from './AddTournament';
 const User = ({ initialPreferredGames = [], initialPreferredPlatform = "", findGamesByPlatform }) => {
     const { user } = useUser(); 

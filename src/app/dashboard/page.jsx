@@ -1,13 +1,12 @@
 "use client";
 import { useUser } from "../context/userContext";
 import { useRouter } from "next/navigation";
-import Logout from "../components/Logout";
-import TournamentComponent from "../components/TournamentComponent";
-import PlatformComponent from "../components/PlatformComponent";
-import GenreComponent from "../components/GenreComponent";
-import GameComponent from "../components/GameComponent";
+import Logout from "../../components/Logout";
+import PlatformComponent from "../../components/PlatformComponent";
+import GenreComponent from "../../components/GenreComponent";
+import GameComponent from "../../components/GameComponent";
 import { useState, useEffect } from "react";
-import User from "../components/user";
+import User from "../../components/user";
 import { useSite } from "../context/apiContext";
 
 export default function Dashboard() {

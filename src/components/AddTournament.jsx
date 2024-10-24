@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import API from "../axios/api";
-import { useUser } from "../context/userContext";
-import { useSite } from "../context/apiContext";
+import API from "../app/axios/api";
+import { useUser } from "../app/context/userContext";
+import { useSite } from "../app/context/apiContext";
 
 const AddTournament = ({ findGamesByPlatform }) => {
   const { user } = useUser();

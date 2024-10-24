@@ -1,4 +1,4 @@
-import { supabase } from "../axios/supabase"; // Ensure the path is correct
+import { supabase } from "../app/axios/supabase"; // Ensure the path is correct
 
 export default function Logout({handleLogOut}) {
     const handleLogout = async () => {

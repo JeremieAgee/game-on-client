@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '@/app/axios/supabase';
-import { useUser } from '../context/userContext';
-import { setAuthHeader } from '../axios/api';
+import { useUser } from '../app/context/userContext';
+import { setAuthHeader } from '../app/axios/api';
 
 export default function Auth() {
   const { setSession, setUser } = useUser();
