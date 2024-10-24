@@ -48,7 +48,7 @@ export const APIProvider = ({ children }) => {
     };
 
     return (
-        <APIContext.Provider value={{ platforms, games, tournaments, genres, loading, error }}>
+        <APIContext.Provider value={{ platforms, games, tournaments, setTournaments, genres, loading, error }}>
             {children}
         </APIContext.Provider>
     );

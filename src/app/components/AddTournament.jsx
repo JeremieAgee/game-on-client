@@ -18,7 +18,7 @@ const AddTournament = ({ findGamesByPlatform }) => {
     maxPlayers: "",
     tournamentStyle: "",
   });
-  const { games, genres, platforms } = useSite();
+  const { platforms, games, tournaments, setTournaments } = useSite();
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showedGames, setShowedGames] = useState(games);
@@ -36,7 +36,7 @@ const AddTournament = ({ findGamesByPlatform }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleChangePlatform = (e) => {
-    
+    setShowedGames(findGamesByPlatform(e.target.value));
     setFormData({ ...formData, ["platformId"]: e.target.value });
   };
 
@@ -46,10 +46,16 @@ const AddTournament = ({ findGamesByPlatform }) => {
     if (!gameId || !foundGame.genreId || !platformId || !prize || !startDate || !startTime || !maxPlayers || !tournamentStyle) {
       setErrorMessage("All fields are required.");
       return false;
-    }
-    if (isNaN(maxPlayers) || Number(maxPlayers) <= 0) {
-      setErrorMessage("Max Players must be a positive number.");
-      return false;
+    } else {
+      setFormData({hostId: user.id,
+        gameId: gameId,
+        genreId: foundGame.id,
+        platformId: platformId,
+        prize: prize,
+        startDate: startDate,
+        startTime: startTime,
+        maxPlayers: maxPlayers,
+        tournamentStyle: tournamentStyle})
     }
     setErrorMessage(""); // Clear error message
     return true;
@@ -57,14 +63,14 @@ const AddTournament = ({ findGamesByPlatform }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-
     if (!validateForm()) return; // Validate form before proceeding
 
     try {
       const response = await API.post("/tournaments", formData);
-      console.log(response.data);
       setMessage("Tournament added successfully!");
+      let newTournaments = tournaments;
+      newTournaments.push(formData);
+      setTournaments(newTournaments);
       setFormData({ 
         hostId: user.id,
         gameId: "",
@@ -74,8 +80,9 @@ const AddTournament = ({ findGamesByPlatform }) => {
         startDate: "",
         startTime: "",
         maxPlayers: "",
-        tournamentStyle: "",
+        tournamentStyle: ""
       });
+      
     } catch (error) {
       console.error(error);
       setMessage("Error adding tournament.");

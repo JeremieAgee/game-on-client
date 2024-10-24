@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../axios/supabase';
 import { useUser } from '../context/userContext';
 import { useSite } from '../context/apiContext';
-
-const User = ({ initialPreferredGames = [], initialPreferredPlatform = "" }) => {
+import AddTournament from './AddTournament';
+const User = ({ initialPreferredGames = [], initialPreferredPlatform = "", findGamesByPlatform }) => {
     const { user } = useUser(); 
-    const { games, platforms } = useSite(); 
+    const { platforms } = useSite(); 
     const [preferredPlatform, setPreferredPlatform] = useState(initialPreferredPlatform);
     const [preferredGames, setPreferredGames] = useState(initialPreferredGames);
     const [name, setName] = useState(user?.user_metadata.name || "");
@@ -17,12 +17,9 @@ const User = ({ initialPreferredGames = [], initialPreferredPlatform = "" }) => 
         if (!preferredPlatform) return;
         const selectedPlatform = platforms.find(platform => platform.name === preferredPlatform);
         if (selectedPlatform) {
-            const platformGames = selectedPlatform.games.map((gameId) => {
-                return games.find(game => game.id === gameId);
-            });
-            setCurrentGames(platformGames.filter(game => game)); 
+            setCurrentGames(findGamesByPlatform(selectedPlatform.id)); 
         }
-    }, [preferredPlatform, platforms, games]);
+    }, [preferredPlatform, platforms]);
 
     // Handle input changes for name and platform
     const handleChange = (e) => {
@@ -147,6 +144,11 @@ const User = ({ initialPreferredGames = [], initialPreferredPlatform = "" }) => 
                     </button>
                 )}
             </form>
+            <AddTournament findGamesByPlatform={findGamesByPlatform}></AddTournament>
+            <div>
+                <h2>Joined Tournaments</h2>
+                <h2>Hosted Tournaments</h2> 
+            </div>
         </div>
     );
 };
